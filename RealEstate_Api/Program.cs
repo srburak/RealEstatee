@@ -3,10 +3,14 @@ using RealEstate_Api.Repositories.BottomGridRepository.Abstract;
 using RealEstate_Api.Repositories.BottomGridRepository.Concrete;
 using RealEstate_Api.Repositories.CategoryRepository.Abstract;
 using RealEstate_Api.Repositories.CategoryRepository.Concrete;
+using RealEstate_Api.Repositories.PopularLocationRepository.Abstract;
+using RealEstate_Api.Repositories.PopularLocationRepository.Concrete;
 using RealEstate_Api.Repositories.ProductRepository.Abstract;
 using RealEstate_Api.Repositories.ProductRepository.Concrete;
 using RealEstate_Api.Repositories.ServicesRepository.Abstract;
 using RealEstate_Api.Repositories.ServicesRepository.Concrete;
+using RealEstate_Api.Repositories.TestimonialRepository.Abstract;
+using RealEstate_Api.Repositories.TestimonialRepository.Concrete;
 using RealEstate_Api.Repositories.WhoWeAreRepository.Abstract;
 using RealEstate_Api.Repositories.WhoWeAreRepository.Concrete;
 
@@ -21,6 +25,8 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IWhoWeAreDetailRepository, WhoWeAreDetailRepository>();
 builder.Services.AddTransient<IServicesRepository, ServicesRepository>();
 builder.Services.AddTransient<IBottomGridRepository, BottomGridRepository>();
+builder.Services.AddTransient<IPopularLocationRepository, PopularLocationRepository>();
+builder.Services.AddTransient<ITestimonialRepository, TestimonialRepository>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
