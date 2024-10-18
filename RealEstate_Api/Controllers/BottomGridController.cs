@@ -44,8 +44,8 @@ namespace RealEstate_Api.Controllers
             return Ok(value);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBottoöGrid(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBottomGrid(int id)
         {
             _bottomGridRepository.DeleteBottomGrid(id);
             return Ok("Kategori başarılı bir şekilde silindi");

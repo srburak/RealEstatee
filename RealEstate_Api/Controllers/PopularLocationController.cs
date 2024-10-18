@@ -45,8 +45,8 @@ namespace RealEstate_Api.Controllers
             return Ok(value);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategory(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePopularLocation(int id)
         {
             _popularLocationRepository.DeletePopularLocation(id);
             return Ok("Lokasyon başarılı bir şekilde silindi");
