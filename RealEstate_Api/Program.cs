@@ -1,8 +1,11 @@
+using RealEstate_Api.Hubs;
 using RealEstate_Api.Models.DapperContext;
 using RealEstate_Api.Repositories.BottomGridRepository.Abstract;
 using RealEstate_Api.Repositories.BottomGridRepository.Concrete;
 using RealEstate_Api.Repositories.CategoryRepository.Abstract;
 using RealEstate_Api.Repositories.CategoryRepository.Concrete;
+using RealEstate_Api.Repositories.ContactRepositories.Abstract;
+using RealEstate_Api.Repositories.ContactRepositories.Concrete;
 using RealEstate_Api.Repositories.EmployeeRepositories.Abstract;
 using RealEstate_Api.Repositories.EmployeeRepositories.Concrete;
 using RealEstate_Api.Repositories.PopularLocationRepository.Abstract;
@@ -15,6 +18,8 @@ using RealEstate_Api.Repositories.StatisticsRepository.Abstract;
 using RealEstate_Api.Repositories.StatisticsRepository.Concrete;
 using RealEstate_Api.Repositories.TestimonialRepository.Abstract;
 using RealEstate_Api.Repositories.TestimonialRepository.Concrete;
+using RealEstate_Api.Repositories.ToDoListRepositories.Abstract;
+using RealEstate_Api.Repositories.ToDoListRepositories.Concrete;
 using RealEstate_Api.Repositories.WhoWeAreRepository.Abstract;
 using RealEstate_Api.Repositories.WhoWeAreRepository.Concrete;
 
@@ -33,6 +38,19 @@ builder.Services.AddTransient<IPopularLocationRepository, PopularLocationReposit
 builder.Services.AddTransient<ITestimonialRepository, TestimonialRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+builder.Services.AddTransient<IContactRepository, ContactRepository>();
+builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyHeader().AllowAnyMethod()
+            .SetIsOriginAllowed((host) => true)
+            .AllowCredentials();
+    });
+});
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -47,10 +65,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>("/signalrhub");
 
 app.Run();
