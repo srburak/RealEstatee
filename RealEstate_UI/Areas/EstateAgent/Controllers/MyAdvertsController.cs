@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RealEstate_UI.Dtos.ProductDtos;
+using RealEstate_UI.Services.Abstract;
 
 namespace RealEstate_UI.Areas.EstateAgent.Controllers
 {
@@ -8,15 +9,16 @@ namespace RealEstate_UI.Areas.EstateAgent.Controllers
     public class MyAdvertsController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public MyAdvertsController(IHttpClientFactory httpClientFactory)
+        private readonly ILoginService _loginService;
+        public MyAdvertsController(IHttpClientFactory httpClientFactory, ILoginService loginService)
         {
             _httpClientFactory = httpClientFactory;
+            _loginService = loginService;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            id = 2;
+            var id = _loginService.GetUserId;
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync(
                 "https://localhost:44364/api/Products/ProductAdvertsListByEmployee?id="+id);
