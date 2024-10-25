@@ -8,6 +8,12 @@ using RealEstate_Api.Repositories.ContactRepositories.Abstract;
 using RealEstate_Api.Repositories.ContactRepositories.Concrete;
 using RealEstate_Api.Repositories.EmployeeRepositories.Abstract;
 using RealEstate_Api.Repositories.EmployeeRepositories.Concrete;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.ChartRepositories.Abstract;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.ChartRepositories.Concrete;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.LastProductsRepositories.Abstract;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.LastProductsRepositories.Concrete;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories.Abstract;
+using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories.Concrete;
 using RealEstate_Api.Repositories.PopularLocationRepository.Abstract;
 using RealEstate_Api.Repositories.PopularLocationRepository.Concrete;
 using RealEstate_Api.Repositories.ProductRepository.Abstract;
@@ -40,6 +46,9 @@ builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IStatisticsRepository, StatisticsRepository>();
 builder.Services.AddTransient<IContactRepository, ContactRepository>();
 builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
+builder.Services.AddTransient<IStatisticRepository, StatisticRepository>();
+builder.Services.AddTransient<IChartRepository, ChartRepository>();
+builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>();
 
 builder.Services.AddCors(opt =>
 {
