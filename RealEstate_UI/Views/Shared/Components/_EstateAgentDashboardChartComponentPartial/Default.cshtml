@@ -19,43 +19,80 @@
         <canvas id="myChart1" style="max-width: 500px"></canvas>
     </div>
 
-<script>
-    // Şehir adları ve sayıları için veriyi alıyoruz
-    var xValues = @Html.Raw(Json.Serialize(Model.Select(item => item.City)));
-    var yValues = @Html.Raw(Json.Serialize(Model.Select(item => item.CityCount)));
-    
-    // Her şehir için renklendirme tanımlıyoruz
-    var barColors = [];
-    for (var i = 0; i < xValues.length; i++) {
-        barColors.push(["rgb(106, 212, 221)", "rgb(127, 199, 217)", "rgb(54, 84, 134)", "rgb(134, 182, 246)", "rgb(0, 141, 218)"][i % 5]);
-    }
+    <script>
+        //Birinci Grafik
+        // Şehir adları ve sayıları için veriyi alıyoruz
+        var xValues = @Html.Raw(Json.Serialize(Model.Select(item => item.City)));
+        var yValues = @Html.Raw(Json.Serialize(Model.Select(item => item.CityCount)));
 
-    // Grafiği oluşturuyoruz
-    new Chart("myChart", {
-        type: "bar",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: { display: false },
-            title: {
-                display: true,
-                text: "Şehir - İlan İstatistiği"
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true // Y eksenini sıfırdan başlat
-                    }
-                }]
-            }
+        // Her şehir için renklendirme tanımlıyoruz
+        var barColors = [];
+        for (var i = 0; i < xValues.length; i++) {
+            barColors.push(["rgb(106, 212, 221)", "rgb(127, 199, 217)", "rgb(54, 84, 134)", "rgb(134, 182, 246)", "rgb(0, 141, 218)"][i % 5]);
         }
-    });
-</script>
+
+        // Grafiği oluşturuyoruz
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Şehir - İlan İstatistiği"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true // Y eksenini sıfırdan başlat
+                        }
+                    }]
+                }
+            }
+        });
+
+        // İkinci Grafik
+        var xValues1 = @Html.Raw(Json.Serialize(Model.Select(item => item.City)));
+        var yValues1 = @Html.Raw(Json.Serialize(Model.Select(item => item.CityCount)));
+
+        // Her şehir için renklendirme tanımlıyoruz
+        var barColors1 = [];
+        for (var i = 0; i < xValues.length; i++) {
+            barColors1.push(["rgb(106, 212, 221)", "rgb(127, 199, 217)", "rgb(54, 84, 134)", "rgb(134, 182, 246)", "rgb(0, 141, 218)"][i % 5]);
+        }
+
+        // Grafiği oluşturuyoruz
+        new Chart("myChart1", {
+            type: "bar",
+            data: {
+                labels: xValues1,
+                datasets: [{
+                    backgroundColor: barColors1,
+                    data: yValues1
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: "Şehir - İlan İstatistiği"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true // Y eksenini sıfırdan başlat
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 
 
 </body>

@@ -14,6 +14,8 @@ using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.
 using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.LastProductsRepositories.Concrete;
 using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories.Abstract;
 using RealEstate_Api.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories.Concrete;
+using RealEstate_Api.Repositories.MessageRepositories.Abstract;
+using RealEstate_Api.Repositories.MessageRepositories.Concrete;
 using RealEstate_Api.Repositories.PopularLocationRepository.Abstract;
 using RealEstate_Api.Repositories.PopularLocationRepository.Concrete;
 using RealEstate_Api.Repositories.ProductRepository.Abstract;
@@ -49,6 +51,7 @@ builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
 builder.Services.AddTransient<IStatisticRepository, StatisticRepository>();
 builder.Services.AddTransient<IChartRepository, ChartRepository>();
 builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>();
+builder.Services.AddTransient<IMessageRepository, MessageRepository>();
 
 builder.Services.AddCors(opt =>
 {
