@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RealEstate_UI.Dtos.CategoryDtos;
 using RealEstate_UI.Dtos.ProductDtos;
 using RealEstate_UI.Services.Abstract;
+using System.Text;
 
 namespace RealEstate_UI.Areas.EstateAgent.Controllers
 {
@@ -72,8 +73,24 @@ namespace RealEstate_UI.Areas.EstateAgent.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAdvert(string x)
+        public async Task<IActionResult> CreateAdvert(CreateProductDto createProductDto)
         {
+            createProductDto.DealOfTheDay = false;
+            createProductDto.AdvertisementDate = DateTime.Now;
+            createProductDto.ProductStatus = true;
+
+            var id = _loginService.GetUserId;
+            createProductDto.EmployeeID = int.Parse(id);
+
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createProductDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:44364/api/Products", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }
