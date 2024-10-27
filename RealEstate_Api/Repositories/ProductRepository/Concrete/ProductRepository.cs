@@ -26,17 +26,32 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             }
         }
 
-        public async Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertsListByEmployeeAsync(int id)
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertsListByEmployeeAsyncByTrue(int id)
         {
             string query = "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay " +
                            "FROM Product inner join Category on" +
-                           " Product.ProductCategory = Category.CategoryID where EmployeeID=@employeeID";
+                           " Product.ProductCategory = Category.CategoryID where EmployeeID=@employeeID and ProductStatus=1";
             var parameters = new DynamicParameters();
             parameters.Add("@employeeID", id);
             using (var connection = _context.CreateConnection())
             {
                 var values = await
                     connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployeeDto>(query,parameters);
+                return values.ToList();
+            }
+        }
+
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertsListByEmployeeAsyncByFalse(int id)
+        {
+            string query = "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay " +
+                           "FROM Product inner join Category on" +
+                           " Product.ProductCategory = Category.CategoryID where EmployeeID=@employeeID and ProductStatus=0";
+            var parameters = new DynamicParameters();
+            parameters.Add("@employeeID", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await
+                    connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployeeDto>(query, parameters);
                 return values.ToList();
             }
         }
@@ -85,6 +100,32 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             {
                 var values = await connection.QueryAsync<ResultLast5ProductWithCategoryDto>(query);
                 return values.ToList();
+            }
+        }
+
+        public async Task CreateProduct(CreateProductDto createProductDto)
+        {
+            string query = "insert into Product (Title,Price,City,District,CoverImage,Address,Description," +
+                           "Type,DealOfTheDay,AdvertisementDate,ProductStatus,ProductCategory,EmployeeID) values " +
+                           "(@Title,@Price,@City,@District,@CoverImage,@Address,@Description,@Type,@DealOfTheDay,@AdvertisementDate,@ProductStatus,@ProductCategory," +
+                           "@EmployeeID)";
+            var parameters = new DynamicParameters();
+            parameters.Add("@Title", createProductDto.Title);
+            parameters.Add("@Price", createProductDto.Price);
+            parameters.Add("@City", createProductDto.City);
+            parameters.Add("@District", createProductDto.District);
+            parameters.Add("@CoverImage", createProductDto.CoverImage);
+            parameters.Add("@Address", createProductDto.Address);
+            parameters.Add("@Description", createProductDto.Description);
+            parameters.Add("@Type", createProductDto.Type);
+            parameters.Add("@DealOfTheDay", createProductDto.DealOfTheDay);
+            parameters.Add("@AdvertisementDate", createProductDto.AdvertisementDate);
+            parameters.Add("@ProductStatus", createProductDto.ProductStatus);
+            parameters.Add("@ProductCategory", createProductDto.ProductCategory);
+            parameters.Add("@EmployeeID", createProductDto.EmployeeID);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
             }
         }
     }

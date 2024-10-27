@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RealEstate_Api.Dtos.ProductDtos;
 using RealEstate_Api.Repositories.ProductRepository.Abstract;
 
 namespace RealEstate_Api.Controllers
@@ -50,11 +51,25 @@ namespace RealEstate_Api.Controllers
             return Ok(values);
         }
 
-        [HttpGet("ProductAdvertsListByEmployee")]
-        public async Task<IActionResult> ProductAdvertsListByEmployee(int id)
+        [HttpGet("ProductAdvertsListByEmployeeByTrue")]
+        public async Task<IActionResult> ProductAdvertsListByEmployeeByTrue(int id)
         {
-            var values = await _productRepository.GetProductAdvertsListByEmployeeAsync(id);
+            var values = await _productRepository.GetProductAdvertsListByEmployeeAsyncByTrue(id);
             return Ok(values);
+        }
+
+        [HttpGet("ProductAdvertsListByEmployeeByFalse")]
+        public async Task<IActionResult> ProductAdvertsListByEmployeeByFalse(int id)
+        {
+            var values = await _productRepository.GetProductAdvertsListByEmployeeAsyncByFalse(id);
+            return Ok(values);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
+        {
+            await _productRepository.CreateProduct(createProductDto);
+            return Ok("İlan Eklendi");
         }
     }
 }
