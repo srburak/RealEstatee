@@ -1,4 +1,4 @@
-﻿namespace RealEstate_Api.Dtos.ProductDetailDtos
+﻿namespace RealEstate_UI.Dtos.ProductDetailDtos
 {
     public class GetProductDetailByIdDto
     {

@@ -133,7 +133,7 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
         public async Task<GetProductByProductIdDto> GetProductByProductId(int id)
         {
             string query =
-                "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay " +
+                "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay,AdvertisementDate " +
                 "FROM Product inner join Category on Product.ProductCategory = Category.CategoryID where ProductID=@productID";
             var parameters = new DynamicParameters();
             parameters.Add("@productID", id);
