@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using RealEstate_Api.Dtos.EmployeeDtos;
+using RealEstate_Api.Dtos.ProductDetailDtos;
 using RealEstate_Api.Dtos.ProductDtos;
 using RealEstate_Api.Models.DapperContext;
 using RealEstate_Api.Repositories.ProductRepository.Abstract;
@@ -68,7 +69,7 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             }
         }
 
-        public async void ProductDealOfTheDayStatusChangeToTrue(int id)
+        public async Task ProductDealOfTheDayStatusChangeToTrue(int id)
         {
             string query = "Update Product Set DealOfTheDay=1 where ProductID=@productID";
             var parameters = new DynamicParameters();
@@ -79,7 +80,7 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             }
         }
 
-        public async void ProductDealOfTheDayStatusChangeToFalse(int id)
+        public async Task ProductDealOfTheDayStatusChangeToFalse(int id)
         {
             string query = "Update Product Set DealOfTheDay=0 where ProductID=@productID";
             var parameters = new DynamicParameters();
@@ -126,6 +127,33 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
+        public async Task<GetProductByProductIdDto> GetProductByProductId(int id)
+        {
+            string query =
+                "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay " +
+                "FROM Product inner join Category on Product.ProductCategory = Category.CategoryID where ProductID=@productID";
+            var parameters = new DynamicParameters();
+            parameters.Add("@productID", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<GetProductByProductIdDto>(query, parameters);
+                return values.FirstOrDefault();
+            }
+        }
+
+        public async Task<GetProductDetailByIdDto> GetProductDetailByIdDto(int id)
+        {
+            string query =
+                "SELECT * From ProductDetails Where ProductID=@productID";
+            var parameters = new DynamicParameters();
+            parameters.Add("@productID", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<GetProductDetailByIdDto>(query, parameters);
+                return values.FirstOrDefault();
             }
         }
     }
