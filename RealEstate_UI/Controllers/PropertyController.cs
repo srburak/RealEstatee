@@ -42,6 +42,7 @@ namespace RealEstate_UI.Controllers
             var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
             var values2 = JsonConvert.DeserializeObject<GetProductDetailByIdDto>(jsonData2);
 
+            ViewBag.id = values.productID;
             ViewBag.title1 = values.title;
             ViewBag.price = values.price;
             ViewBag.city = values.city;

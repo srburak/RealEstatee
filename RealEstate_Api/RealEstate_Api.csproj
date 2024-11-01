@@ -15,6 +15,11 @@
 
   <ItemGroup>
     <Folder Include="Containers\" />
+    <Folder Include="Dtos\PropertyAmentiyDtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RealEstate_UI\RealEstate_UI.csproj" />
   </ItemGroup>
 
 </Project>
