@@ -15,8 +15,6 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
         {
             _context = context;
         }
-
-
         public async Task<List<ResultProductDto>> GetAllProductAsync()
         {
             string query = "SELECT * FROM Product";
@@ -154,6 +152,20 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             {
                 var values = await connection.QueryAsync<GetProductDetailByIdDto>(query, parameters);
                 return values.FirstOrDefault();
+            }
+        }
+
+        public async Task<List<ResultProductWithSearchListDto>> ResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city)
+        {
+            string query = "Select * From Product Where Title like '%" + searchKeyValue + "%' And ProductCategory=@propertyCategoryId And City=@city";
+            var parameters = new DynamicParameters();
+            parameters.Add("@propertyCategoryId", propertyCategoryId);
+            parameters.Add("@city", city);
+            using (var connection = _context.CreateConnection())
+            {
+                var values =
+                    await connection.QueryAsync<ResultProductWithSearchListDto>(query, parameters);
+                return values.ToList();
             }
         }
     }

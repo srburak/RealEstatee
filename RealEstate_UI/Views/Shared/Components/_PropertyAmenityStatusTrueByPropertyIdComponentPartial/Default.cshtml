@@ -1,0 +1,11 @@
+﻿@model List<ResultPropertyAmenityByStatusTrueDto>
+
+<div class="single-bg-white">
+    <h3 class="post-content-title mb-4">Olanaklar</h3>
+    <ul class="details-list">
+        @foreach (var itme in Model)
+        {
+            <li><strong>@itme.Title </strong></li>
+        }
+    </ul>
+</div>

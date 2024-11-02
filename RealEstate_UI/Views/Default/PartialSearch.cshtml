@@ -1,11 +1,5 @@
 ﻿@model List<ResultCategoryDto>
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
-}
-
-
 <section class="w3l-cover-3">
     <div class="cover top-bottom">
         <div class="container">
@@ -54,18 +48,4 @@
             </div>
         </div>
     </div>
-</section> 
-
-
-
-@*   @await Html.PartialAsync("~/Views/Default/PartialSearch.cshtml")   *@
-
-@* @await Component.InvokeAsync("_DefaultFeatureComponentPartial") *@
-@await Component.InvokeAsync("_DefaultHomePageProductList")
-@await Component.InvokeAsync("_DefaultWhoWeAreComponentPartial")
-@await Component.InvokeAsync("_DefaultBottomGridComponentPartial")
-@await Component.InvokeAsync("_DefaultProductListExploreCitiesComponentPartial")
-@await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
-@await Component.InvokeAsync("_DefaultSubFeatureComponentPartial")
-@await Component.InvokeAsync("_DefaultDiscountOfDayComponentPartial")
-@await Component.InvokeAsync("_DefaultBrandComponentPartial")
+</section>

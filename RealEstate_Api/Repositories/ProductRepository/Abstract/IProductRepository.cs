@@ -15,5 +15,6 @@ namespace RealEstate_Api.Repositories.ProductRepository.Abstract
         Task CreateProduct(CreateProductDto createProductDto);
         Task<GetProductByProductIdDto> GetProductByProductId(int id);
         Task<GetProductDetailByIdDto> GetProductDetailByIdDto(int id);
+        Task<List<ResultProductWithSearchListDto>> ResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city);
     }
 }
