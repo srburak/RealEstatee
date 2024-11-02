@@ -13,7 +13,6 @@ namespace RealEstate_UI.ViewComponents.PropertySingle
         }
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            id =1;
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:44364/api/ProductImages?id=" + id);
             if (responseMessage.IsSuccessStatusCode)

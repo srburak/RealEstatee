@@ -14,7 +14,7 @@ namespace RealEstate_Api.Repositories.CategoryRepository.Concrete
             _context = context;
         }
 
-        public async void CreateCategory(CreateCategoryDto category)
+        public async Task CreateCategory(CreateCategoryDto category)
         {
             string query = "INSERT INTO Category (CategoryName,CategoryStatus) VALUES (@categoryName,@categoryStatus)";
             var parameters = new DynamicParameters();
@@ -36,7 +36,7 @@ namespace RealEstate_Api.Repositories.CategoryRepository.Concrete
             }
         }
 
-        public async void DeleteCategory(int id)
+        public async Task DeleteCategory(int id)
         {
             string query = "DELETE FROM Category WHERE CategoryId=@categoryID";
             var parameters = new DynamicParameters();
@@ -47,7 +47,7 @@ namespace RealEstate_Api.Repositories.CategoryRepository.Concrete
             }
         }
 
-        public async void UpdateCategory(UpdateCategoryDto categoryDto)
+        public async Task UpdateCategory(UpdateCategoryDto categoryDto)
         {
             string query =
                 "UPDATE Category SET CategoryName=@categoryName,CategoryStatus=@categoryStatus WHERE CategoryId=@categoryID";

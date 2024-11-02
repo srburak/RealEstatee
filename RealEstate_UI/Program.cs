@@ -1,11 +1,18 @@
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RealEstate_UI.Models;
 using RealEstate_UI.Services.Abstract;
 using RealEstate_UI.Services.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettingsKey"));
+
+builder.Services.AddScoped<ApiSettings>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

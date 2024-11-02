@@ -102,6 +102,18 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             }
         }
 
+        public async Task<List<ResultLast3ProductWithCategoryDto>> GetLast3ProductAsync()
+        {
+            string query = "SELECT TOP(3) ProductID,Title,Price,City,District,ProductCategory," +
+                           "CategoryName,AdvertisementDate,CoverImage,Description FROM Product Inner Join Category " +
+                           "On Product.ProductCategory=Category.CategoryID Order By ProductID Desc";
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultLast3ProductWithCategoryDto>(query);
+                return values.ToList();
+            }
+        }
+
         public async Task CreateProduct(CreateProductDto createProductDto)
         {
             string query = "insert into Product (Title,Price,City,District,CoverImage,Address,Description," +
@@ -165,6 +177,18 @@ namespace RealEstate_Api.Repositories.ProductRepository.Concrete
             {
                 var values =
                     await connection.QueryAsync<ResultProductWithSearchListDto>(query, parameters);
+                return values.ToList();
+            }
+        }
+
+        public async Task<List<ResultProductWithCategoryDto>> GetProductDealOfTheDayTrueWithCategoryAsync()
+        {
+            string query = "SELECT ProductID,Title,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay " +
+                           "FROM Product inner join Category on Product.ProductCategory = Category.CategoryID Where DealOfTheDay=1";
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await
+                    connection.QueryAsync<ResultProductWithCategoryDto>(query);
                 return values.ToList();
             }
         }

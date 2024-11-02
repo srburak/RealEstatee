@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using RealEstate_UI.Dtos.CategoryDtos;
 using System.Net.Http;
+using Microsoft.Extensions.Options;
+using RealEstate_UI.Models;
 
 namespace RealEstate_UI.Controllers
 {
@@ -9,16 +11,20 @@ namespace RealEstate_UI.Controllers
     {
 
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ApiSettings _apiSettings;
 
-        public DefaultController(IHttpClientFactory httpClientFactory)
+        public DefaultController(IHttpClientFactory httpClientFactory, IOptions<ApiSettings> apiSettings)
         {
             _httpClientFactory = httpClientFactory;
+            _apiSettings = apiSettings.Value;
         }
 
+        //https://localhost:44364/api/Categories
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44364/api/Categories");
+            client.BaseAddress = new Uri(_apiSettings.BaseUrl);
+            var responseMessage = await client.GetAsync("Categories");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

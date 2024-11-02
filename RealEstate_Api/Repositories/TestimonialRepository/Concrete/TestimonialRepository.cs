@@ -24,7 +24,7 @@ namespace RealEstate_Api.Repositories.TestimonialRepository.Concrete
             }
         }
 
-        public async void CreateTestimonial(CreateTestimonialDto createTestimonialDto)
+        public async Task CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
             string query = "INSERT INTO Testimonial (NameSurname,Title,Commnet,Status)" +
                            " VALUES (@nameSurname,@title,@commnet,@status)";
@@ -39,7 +39,7 @@ namespace RealEstate_Api.Repositories.TestimonialRepository.Concrete
             }
         }
 
-        public async void DeleteTestimonial(int id)
+        public async Task DeleteTestimonial(int id)
         {
             string query = "DELETE FROM Testimonial WHERE TestimonialID=@testimonialID";
             var parameters = new DynamicParameters();
@@ -50,7 +50,7 @@ namespace RealEstate_Api.Repositories.TestimonialRepository.Concrete
             }
         }
 
-        public async void UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+        public async Task UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
             string query =
                 "UPDATE Testimonial SET NameSurname=@nameSurname,Title=@title,Commnet=@commnet,Status=@status" +

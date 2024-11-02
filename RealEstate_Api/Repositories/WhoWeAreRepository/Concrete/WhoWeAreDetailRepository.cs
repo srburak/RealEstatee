@@ -15,7 +15,7 @@ namespace RealEstate_Api.Repositories.WhoWeAreRepository.Concrete
             _context = context;
         }
 
-        public async void CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
+        public async Task CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
         {
             string query = "INSERT INTO WhoWeAreDetail (Title,SubTitle,Description1,Description2) VALUES (@title,@subTitle,@description1,@description2)";
             var parameters = new DynamicParameters();
@@ -40,7 +40,7 @@ namespace RealEstate_Api.Repositories.WhoWeAreRepository.Concrete
             }
         }
 
-        public async void DeleteWhoWeAreDetail(int id)
+        public async Task DeleteWhoWeAreDetail(int id)
         {
             string query = "DELETE FROM WhoWeAreDetail WHERE WhoWeAreDetailID=@whoWeAreDetailID";
             var parameters = new DynamicParameters();
@@ -51,7 +51,7 @@ namespace RealEstate_Api.Repositories.WhoWeAreRepository.Concrete
             }
         }
 
-        public async void UpdateWhoWeAreDetail(UpdateWhoWeAreDetailDto updateWhoWeAreDetailDto)
+        public async Task UpdateWhoWeAreDetail(UpdateWhoWeAreDetailDto updateWhoWeAreDetailDto)
         {
             string query =
                 "UPDATE WhoWeAreDetail SET Title=@title,SubTitle=@subTitle,Description1=@description1,Description2=@description2" +
